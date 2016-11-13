@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd
+	http://cxf.apache.org/transports/http/configuration 
+	http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+	
+	<!-- Import cxf config file -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-jaxws.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	
+	<http-conf:conduit name="*.http-conduit">
+		<http-conf:client ConnectionTimeout="10000" ReceiveTimeout="20000"/>
+	</http-conf:conduit>
+	
+	<!-- WebService客户端配置，用于通过http调用是使用,注意此处端口应该随服务器开放的web端口做相应修改 -->
+	<!-- <jaxws:client id="configWsClient" serviceClass="com.fh.ws.WsConfigService" address="http://${callengine_ip}:${callengine_port}/callengine/ws/config" />
+	<jaxws:client id="operationWsClient" serviceClass="com.fh.ws.WsOperationService" address="http://${callengine_ip}:${callengine_port}/callengine/ws/operation" />
+	<jaxws:client id="statusWsClient" serviceClass="com.fh.ws.WsStatusService" address="http://${callengine_ip}:${callengine_port}/callengine/ws/status" />
+	<jaxws:client id="otherWsClient" serviceClass="com.fh.ws.WsOtherService" address="http://${callengine_ip}:${callengine_port}/callengine/ws/other" />
+ -->    
+    <jaxws:client id="configWsClient" serviceClass="com.fh.ws.WsConfigService" address="http://192.168.1.187:8087/callengine/ws/config" />
+	<jaxws:client id="operationWsClient" serviceClass="com.fh.ws.WsOperationService" address="http://192.168.1.187:8087/callengine/ws/operation" />
+	<jaxws:client id="statusWsClient" serviceClass="com.fh.ws.WsStatusService" address="http://192.168.1.187:8087/callengine/ws/status" />
+	<jaxws:client id="otherWsClient" serviceClass="com.fh.ws.WsOtherService" address="http://192.168.1.187:8087/callengine/ws/other" />	
+</beans>

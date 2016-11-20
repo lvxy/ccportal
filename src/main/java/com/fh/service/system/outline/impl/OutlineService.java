@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
+import com.fh.util.CallResult;
 import com.fh.util.DataAccessUtils;
 import com.fh.util.GsonUtils;
 import com.fh.util.PageData;
@@ -32,8 +33,31 @@ public class OutlineService implements OutlineManager{
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void save(PageData pd)throws Exception{
-		dao.save("OutlineMapper.save", pd);
+	public CallResult save(PageData pd)throws Exception{
+		//设置参数
+		Map<String,Object> row=new HashMap<String, Object>();
+		Map<String,String> bizdata=new HashMap<String, String>();
+		
+		row.put("scope", "gateway");
+		row.put("_bizdata", bizdata);
+		row.put("userName",pd.get("USERNAME"));
+		row.put("realm",pd.get("REALM"));
+		row.put("password",pd.get("PASSWORD"));
+		row.put("register",pd.get("REGISTER"));
+		row.put("type",pd.get("TYPE"));
+		row.put("port",pd.get("PORT"));
+		// BizdataField
+		bizdata.put("timeout",(String) pd.get("TIMEOUT"));
+		bizdata.put("incoming_type",(String) pd.get("INCOMING_TYPE"));
+		bizdata.put("incoming_exten",(String) pd.get("INCOMING_EXTEN"));
+		bizdata.put("incoming_callcenter",(String) pd.get("INCOMING_CALLCENTER"));
+		bizdata.put("incoming_ivr",(String) pd.get("INCOMING_IVR"));
+		bizdata.put("effective_caller_id_name",(String) pd.get("EFFECTIVE_CALLER_ID_NAME"));
+		bizdata.put("force_effective_caller_id_name",(String) pd.get("FORCE_EFFECTIVE_CALLER_ID_NAME"));
+		bizdata.put("type_blacklist",(String) pd.get("TYPE_BLACKLIST"));
+		
+		CallResult return_result=DataAccessUtils.addConfigData(GsonUtils.toJson(row));	
+		return return_result;
 	}
 	
 	/**删除

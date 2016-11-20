@@ -8,7 +8,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.util.AppUtil;
+import com.fh.util.CallResult;
 import com.fh.util.ObjectExcelView;
 import com.fh.util.PageData;
 import com.fh.util.Jurisdiction;
@@ -50,8 +54,10 @@ public class OutlineController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("OUTLINE_ID", this.get32UUID());	//主键
-		outlineService.save(pd);
-		mv.addObject("msg","success");
+		CallResult return_result=outlineService.save(pd);
+		if(return_result.getCode().equals(0)){
+			mv.addObject("msg","success");
+		}
 		mv.setViewName("save_result");
 		return mv;
 	}

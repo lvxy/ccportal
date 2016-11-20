@@ -1,7 +1,9 @@
 package com.fh.service.system.outline;
 
 import java.util.List;
+
 import com.fh.entity.Page;
+import com.fh.util.CallResult;
 import com.fh.util.PageData;
 
 /** 
@@ -16,7 +18,7 @@ public interface OutlineManager{
 	 * @param pd
 	 * @throws Exception
 	 */
-	public void save(PageData pd)throws Exception;
+	public CallResult save(PageData pd)throws Exception;
 	
 	/**删除
 	 * @param pd

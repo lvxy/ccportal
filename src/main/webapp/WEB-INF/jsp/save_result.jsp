@@ -13,20 +13,35 @@
 <base href="<%=basePath%>">
 <meta name="description" content="overview & stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<script type="text/javascript">
+	alert(333)
+</script>
 <script type="text/javascript" src="static/js/jquery-1.7.2.js"></script>
 
 </head>
-<body>
+<body onload="showLoad()">
 	<div id="zhongxin"></div>
 	<script type="text/javascript">
+	$(function(){
+		
+		alert(1111)
+		showMessage();
+		
+	});
+	
+	function showLoad(){
+		alert(2222)
+	}
+	
+	function showMessage(){
 		var msg = "${msg}";
 		if(msg=="success" || msg==""){
 			document.getElementById('zhongxin').style.display = 'none';
-			top.Dialog.close();
+			top.Dialog.close(); 
 		}else{
 			top.Dialog.close();
 		}
+	}
 	</script>
 </body>
 </html>

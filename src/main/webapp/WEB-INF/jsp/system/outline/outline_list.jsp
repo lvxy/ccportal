@@ -73,9 +73,9 @@
 									<th class="center">是否注册</th>
 									<th class="center">外线类型</th>
 									<th class="center">端口号</th>
-									<th class="center">外线呼叫超时时间</th>
-									<th class="center">外线呼入类型</th>
-									<th class="center">外线呼入IVR</th>
+									<th class="center">超时时间</th>
+									<th class="center">呼入类型</th>
+									<th class="center">呼入IVR</th>
 									<th class="center">呼入分机</th>
 									<th class="center">呼入队列</th>
 									<th class="center">外线显示信息</th>
@@ -99,29 +99,40 @@
 											<td class='center'>${var.USERNAME}</td>
 											<td class='center'>${var.REALM}</td>
 											<td class='center'>${var.PASSWORD}</td>
-											<td class='center'>${var.REGISTER}</td>
+											<td class='center'>
+											<c:if test="${var.REGISTER == 'true' }">注册</c:if>
+											<c:if test="${var.REGISTER == 'false' }">不注册</c:if>
+											</td> 
 											<td class='center'>${var.TYPE}</td>
 											<td class='center'>${var.PORT}</td>
 											<td class='center'>${var.TIMEOUT}</td>
-											<td class='center'>${var.INCOMING_TYPE}</td>
+											<td class='center'>
+											<c:if test="${var.INCOMING_TYPE == 'zongji' }">总机</c:if>
+											<c:if test="${var.INCOMING_TYPE == 'callcenter' }">队列</c:if>
+											<c:if test="${var.INCOMING_TYPE == 'exten' }">分机</c:if>
+											<c:if test="${var.INCOMING_TYPE == 'ivr' }">IVR</c:if>
+											<c:if test="${var.INCOMING_TYPE == 'dynamicIVR' }">动态IVR</c:if>
+											<c:if test="${var.INCOMING_TYPE == 'dialAssistant' }">代转呼叫</c:if>
+											<c:if test="${var.INCOMING_TYPE == 'route' }">专员路由</c:if>
+											</td>
 											<td class='center'>${var.INCOMING_IVR}</td>
 											<td class='center'>${var.INCOMING_EXTEN}</td>
 											<td class='center'>${var.INCOMING_CALLCENTER}</td>
 											<td class='center'>${var.EFFECTIVE_CALLER_ID_NAME}</td>
 											<td class='center'>${var.FORCE_EFFECTIVE_CALLER_ID_NAME}</td>
-											<td class='center'>${var.TYPE_BLACKLIST}</td>
+											<td class='center'><c:if test="${var.TYPE_BLACKLIST == 'none' }">关闭</c:if><c:if test="${var.TYPE_BLACKLIST == 'global' }">全局</c:if><c:if test="${var.TYPE_BLACKLIST == 'custom' }">自定义</c:if></td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.OUTLINE_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.USERNAME}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.OUTLINE_ID}');">
+													<a class="btn btn-xs btn-danger" onclick="del('${var.USERNAME}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
 													</c:if>
@@ -303,7 +314,7 @@
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>outline/delete.do?OUTLINE_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>outline/delete.do?OUTLINE_NAME="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
 						nextPage(${page.currentPage});
 					});
@@ -317,9 +328,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>outline/goEdit.do?OUTLINE_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.URL = '<%=basePath%>outline/goEdit.do?OUTLINE_USERNAME='+Id;
+			 diag.Width = 700;
+			 diag.Height = 455;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});

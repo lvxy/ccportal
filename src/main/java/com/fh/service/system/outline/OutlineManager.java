@@ -36,7 +36,7 @@ public interface OutlineManager{
 	 * @param page
 	 * @throws Exception
 	 */
-	public List<PageData> list(Page page)throws Exception;
+	public List<PageData> list(Page page,PageData pd)throws Exception;
 	
 	/**列表(全部)
 	 * @param pd
@@ -49,6 +49,14 @@ public interface OutlineManager{
 	 * @throws Exception
 	 */
 	public PageData findById(PageData pd)throws Exception;
+	
+	/**
+	 * 通过外线名获取数据
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findByUsername(PageData pd)throws Exception;
 	
 	/**批量删除
 	 * @param ArrayDATA_IDS

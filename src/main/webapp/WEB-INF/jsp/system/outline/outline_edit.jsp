@@ -28,7 +28,7 @@
 					<div class="col-xs-12">
 					
 					<form action="outline/${msg }.do" name="Form" id="Form" method="post">
-						<input type="hidden" name="OUTLINE_ID" id="OUTLINE_ID" value="${pd.OUTLINE_ID}"/>
+						<input type="hidden" name="PRE_OUTLINE_NAME" id="OUTLINE_NAME" value="${pd.USERNAME}"/>
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>

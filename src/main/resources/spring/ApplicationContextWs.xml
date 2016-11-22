@@ -35,8 +35,8 @@
 	<jaxws:client id="statusWsClient" serviceClass="com.fh.ws.WsStatusService" address="http://${callengine_ip}:${callengine_port}/callengine/ws/status" />
 	<jaxws:client id="otherWsClient" serviceClass="com.fh.ws.WsOtherService" address="http://${callengine_ip}:${callengine_port}/callengine/ws/other" />
  -->    
-    <jaxws:client id="configWsClient" serviceClass="com.fh.ws.WsConfigService" address="http://192.168.1.187:8087/callengine/ws/config" />
-	<jaxws:client id="operationWsClient" serviceClass="com.fh.ws.WsOperationService" address="http://192.168.1.187:8087/callengine/ws/operation" />
-	<jaxws:client id="statusWsClient" serviceClass="com.fh.ws.WsStatusService" address="http://192.168.1.187:8087/callengine/ws/status" />
-	<jaxws:client id="otherWsClient" serviceClass="com.fh.ws.WsOtherService" address="http://192.168.1.187:8087/callengine/ws/other" />	
+    <jaxws:client id="configWsClient" serviceClass="com.fh.ws.WsConfigService" address="http://192.168.1.189:8080/callengine/ws/config" />
+	<jaxws:client id="operationWsClient" serviceClass="com.fh.ws.WsOperationService" address="http://192.168.1.189:8080/callengine/ws/operation" />
+	<jaxws:client id="statusWsClient" serviceClass="com.fh.ws.WsStatusService" address="http://192.168.1.189:8080/callengine/ws/status" />
+	<jaxws:client id="otherWsClient" serviceClass="com.fh.ws.WsOtherService" address="http://192.168.1.189:8080/callengine/ws/other" />	
 </beans>

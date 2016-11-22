@@ -23,6 +23,8 @@ import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.util.AppUtil;
 import com.fh.util.CallResult;
+import com.fh.util.DataAccessUtils;
+import com.fh.util.GsonUtils;
 import com.fh.util.ObjectExcelView;
 import com.fh.util.PageData;
 import com.fh.util.Jurisdiction;
@@ -55,10 +57,14 @@ public class OutlineController extends BaseController {
 		pd = this.getPageData();
 		pd.put("OUTLINE_ID", this.get32UUID());	//主键
 		CallResult return_result=outlineService.save(pd);
+		
 		if(return_result.getCode().equals(0)){
 			mv.addObject("msg","success");
+			mv.setViewName("save_result");
+		}else {
+			mv.addObject("exception","[ code="+return_result.getCode()+",errmsg="+return_result.getErrmsg()+",result="+return_result.getResult()+" ]");
+			mv.setViewName("error");
 		}
-		mv.setViewName("save_result");
 		return mv;
 	}
 	
@@ -101,7 +107,7 @@ public class OutlineController extends BaseController {
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"列表Outline");
-		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -110,13 +116,14 @@ public class OutlineController extends BaseController {
 			pd.put("keywords", keywords.trim());
 		}
 		page.setPd(pd);
-		List<PageData>	varList = outlineService.list(page);	//列出Outline列表
+		List<PageData>	varList = outlineService.list(page,pd);	//列出Outline列表
 		mv.setViewName("system/outline/outline_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
+	
 	
 	/**去新增页面
 	 * @param
@@ -142,7 +149,7 @@ public class OutlineController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd = outlineService.findById(pd);	//根据ID读取
+		pd = outlineService.findByUsername(pd);
 		mv.setViewName("system/outline/outline_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);

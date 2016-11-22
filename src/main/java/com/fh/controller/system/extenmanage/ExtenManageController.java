@@ -111,9 +111,9 @@ public class ExtenManageController extends BaseController {
 //		List<PageData>	varList = extenmanageService.list(page);	//列出ExtenManage列表
 		int  countExten=DataAccessUtils.count("{'scope':'exten'}");
 		page.setTotalResult(countExten);
-		System.err.println("当前页："+page.getCurrentPage()+"------当前结果数："+page.getCurrentResult()+"------显示数量：-"+page.getShowCount()+"------总页数："+page.getTotalPage()+"--------总记录数："+page.getTotalResult()+"-----pageData:"+page.getPd());
-		
-		System.err.println("=====size:"+pd.get("page.showCount")+"===currentPage:"+pd.get("page.currentPage"));
+//		System.err.println("当前页："+page.getCurrentPage()+"------当前结果数："+page.getCurrentResult()+"------显示数量：-"+page.getShowCount()+"------总页数："+page.getTotalPage()+"--------总记录数："+page.getTotalResult()+"-----pageData:"+page.getPd());
+//		
+//		System.err.println("=====size:"+pd.get("page.showCount")+"===currentPage:"+pd.get("page.currentPage"));
 		//当前页：
 		int currentPage=  pd.get("page.currentPage")==null?page.getCurrentPage():Integer.valueOf((String) pd.get("page.currentPage"));
 		//每页数量
